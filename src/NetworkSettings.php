@@ -53,9 +53,9 @@ class NetworkSettings {
 				</td>
 			</tr>
 			<tr>
-				<th><label for="swp_settings[password]"><?php _e( 'Site Password' ); ?></label></th>
+				<th><label for="swp_settings[password]"><?php _e( 'Network Password' ); ?></label></th>
 				<td>
-					<input type="password" name="swp_settings[password]" id="swp_settings-password" value="<?php echo esc_attr( $password ) ?>"/>
+					<input type="password" name="swp_settings[password]" id="swp_settings-password" value="<?php echo esc_attr( $password ); ?>"/>
 				</td>
 			</tr>
 		</table>

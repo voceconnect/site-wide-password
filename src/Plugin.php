@@ -3,6 +3,7 @@
 namespace Voce\SiteWidePassword;
 
 require_once dirname( __FILE__ ) . '/NetworkSettings.php';
+require_once dirname( __FILE__ ) . '/SiteSettings.php';
 
 class Plugin {
 
@@ -10,6 +11,9 @@ class Plugin {
 		add_filter( 'template_include', [ $this, 'filterTemplateInclude' ] );
 		$network_settings = new NetworkSettings;
 		$network_settings->init();
+
+		$site_settings = new SiteSettings;
+		$site_settings->init();
 	}
 
 	/**
