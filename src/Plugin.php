@@ -3,6 +3,7 @@
 namespace Voce\SiteWidePassword;
 
 require_once dirname( __FILE__ ) . '/NetworkSettings.php';
+require_once dirname( __FILE__ ) . '/SiteSettings.php';
 
 class Plugin {
 
@@ -10,15 +11,29 @@ class Plugin {
 		add_filter( 'template_include', [ $this, 'filterTemplateInclude' ] );
 		$network_settings = new NetworkSettings;
 		$network_settings->init();
+
+		$site_settings = new SiteSettings;
+		$site_settings->init();
 	}
 
 	/**
 	 * Prompt for site password if user isn't logged or user is logged in and not an admin
 	 */
 	public function filterTemplateInclude( $template ) {
-		$swp_settings = NetworkSettings::getSettings();
+		$swp_site_settings    = SiteSettings::getSettings();
+		$swp_network_settings = NetworkSettings::getSettings();
+
+		// site settings take precedent over network settings
+		if ( ! empty( $swp_site_settings['active'] ) && ! empty( $swp_site_settings['password'] ) ) {
+			$swp_settings = $swp_site_settings;
+		} elseif ( ! empty( $swp_network_settings['active'] ) && ! empty( $swp_network_settings['password'] ) ) {
+			$swp_settings = $swp_network_settings;
+		} else {
+			$swp_settings = false;
+		}
+
 		$messages     = [ ];
-		if ( ! is_admin() && $swp_settings['active'] && ! empty( $swp_settings['password'] ) ) {
+		if ( ! is_admin() && ! empty( $swp_settings ) && $swp_settings['active'] && ! empty( $swp_settings['password'] ) ) {
 			// if user is admin, don't stop them
 			if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {
 				return $template;
