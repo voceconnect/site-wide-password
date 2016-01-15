@@ -3,7 +3,7 @@
  * Plugin Name: Site Wide Password
  * Plugin URI: http://voceconnect.com
  * Description: Blocks access to the front-end of the site unless a user provides a password.
- * Author: prettyboymp
+ * Author: prettyboymp, smccafferty
  * Version: 0.1.0
  * License: GPL2+
  */
