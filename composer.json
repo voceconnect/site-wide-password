@@ -1,16 +1,16 @@
 {
-	"name": "voceconnect/site-wide-password",
-	"description": "Site Wide Password",
-	"authors": [
-		{
-			"name": "Sean McCafferty",
-			"email": "seanmcc@voceconnect.com"
-		},
-		{
-			"name": "Mike Pretty",
-			"email": "mike.pretty@voceconnect.com"
-		}
-	],
-	"require": { },
-	"autoload": { }
+    "name": "voceconnect/site-wide-password",
+    "description": "Site Wide Password",
+    "authors": [
+        {
+            "name": "Sean McCafferty",
+            "email": "seanmcc@voceconnect.com"
+        },
+        {
+            "name": "Mike Pretty",
+            "email": "mike.pretty@voceconnect.com"
+        }
+    ],
+    "require": { },
+    "autoload": { }
 }
