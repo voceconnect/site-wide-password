@@ -1,6 +1,7 @@
 {
     "name": "voceconnect/site-wide-password",
     "description": "Site Wide Password",
+    "type": "wordpress-plugin",
     "authors": [
         {
             "name": "Sean McCafferty",
