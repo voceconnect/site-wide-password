@@ -42,7 +42,7 @@ class Plugin {
 			// check if user has cookie with correct password
 			$site_wide_password = empty( $_COOKIE['swp'] ) ? false : $_COOKIE['swp'];
 			if ( ! empty( $site_wide_password ) && $swp_settings['password'] ) {
-				if ( $_COOKIE['swp'] === $this->generate_cookie_hash( $swp_settings['password'] ) ) {
+				if ( $_COOKIE['swp'] === $this->generate_cookie_hash( $swp_settings['password'], get_current_user_id() ) || $_COOKIE['swp'] === $this->generate_cookie_hash( $swp_settings['password'], 0 ) ) {
 					return $template;
 				}
 			}
@@ -61,7 +61,7 @@ class Plugin {
 				} elseif ( $swp_settings['password'] !== $password ) {
 					$messages[] = 'Incorrect password.';
 				} else {
-					setcookie( 'swp', $this->generate_cookie_hash( $password ) );
+					setcookie( 'swp', $this->generate_cookie_hash( $password, get_current_user_id() ) );
 					return $template;
 				}
 			}
@@ -73,7 +73,7 @@ class Plugin {
 		return $template;
 	}
 
-	private function generate_cookie_hash( $password ) {
-		return wp_hash( sprintf( '%s_%s', get_current_user_id(), $password ) );
+	private function generate_cookie_hash( $password, $user_id ) {
+		return wp_hash( sprintf( '%s_%s', $user_id, $password ) );
 	}
 }
