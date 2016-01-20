@@ -66,13 +66,9 @@ class Plugin {
 				}
 			}
 
-			// if user is not on front / home page, redirect them there
-			if ( is_front_page() || is_home() ) {
-				include_once dirname( __FILE__ ) . '/tmpl/password.php';
-				die;
-			} else {
-				wp_safe_redirect( get_home_url() );
-			}
+			include_once dirname( __FILE__ ) . '/tmpl/password.php';
+			die;
+
 		}
 		return $template;
 	}
