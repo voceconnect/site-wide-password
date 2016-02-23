@@ -43,7 +43,7 @@ class SiteSettings {
 				<?php
 			}, 'general', 'swp_settings' );
 
-			add_settings_field( 'swp_settings-disable-rss', 'Password disable-rss', function() {
+			add_settings_field( 'swp_settings-disable-rss', 'Disable RSS feed', function() {
 				$swp_settings = SiteSettings::getSettings();
 				$disable_rss  = ! empty( $swp_settings[ 'disable-rss' ] );
 				?>
