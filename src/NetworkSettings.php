@@ -7,8 +7,9 @@ class NetworkSettings {
 
 	protected static function getDefaultSettings() {
 		return $defaults = [
-				'active'   => false,
-				'password' => ''
+				'active'      => false,
+				'password'    => '',
+				'disable-rss' => false
 		];
 	}
 
@@ -33,7 +34,8 @@ class NetworkSettings {
 		$swp_settings = empty( $_POST[ 'swp_settings' ] ) ? array() : $_POST[ 'swp_settings' ];
 
 		$newSettings[ 'active' ] = ! empty( $swp_settings['active'] );
-		$newSettings[ 'password' ] = empty( $swp_settings['password'] ) ? '' : esc_attr( $swp_settings['password'] );
+		$newSettings[ 'password' ] = empty( $swp_settings['password'] ) ? '' : sanitize_text_field( $swp_settings['password'] );
+		$newSettings[ 'disable_rss' ] = ! empty( $swp_settings['disable_rss'] );
 
 		self::setSettings( $newSettings );
 	}
@@ -41,8 +43,9 @@ class NetworkSettings {
 	public function displaySettings() {
 		$swp_settings = self::getSettings();
 
-		$active   = ! empty( $swp_settings[ 'active' ] );
-		$password = empty( $swp_settings[ 'password' ] ) ? '' : $swp_settings[ 'password' ];
+		$active      = ! empty( $swp_settings[ 'active' ] );
+		$password    = empty( $swp_settings[ 'password' ] ) ? '' : $swp_settings[ 'password' ];
+		$disable_rss = ! empty( $swp_settings[ 'disable-rss' ] );
 		?>
 		<h2><?php _e( 'Site Wide Password' ); ?></h2>
 		<table class="form-table">
@@ -56,6 +59,12 @@ class NetworkSettings {
 				<th><label for="swp_settings[password]"><?php _e( 'Network Password' ); ?></label></th>
 				<td>
 					<input type="password" name="swp_settings[password]" id="swp_settings-password" value="<?php echo esc_attr( $password ); ?>"/>
+				</td>
+			</tr>
+			<tr>
+				<th><label for="swp_settings[disable-rss]"><?php _e( 'Disable RSS feed' ); ?></label></th>
+				<td>
+					<input type="checkbox" name="swp_settings[disable-rss]" id="swp_settings_disable_rss" value="1" <?php checked( $disable_rss ); ?>/>
 				</td>
 			</tr>
 		</table>

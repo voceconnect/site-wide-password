@@ -9,6 +9,11 @@ class Plugin {
 
 	public function init() {
 		add_filter( 'template_include', [ $this, 'filterTemplateInclude' ] );
+		add_action( 'do_feed', [ $this, 'disableRss' ], 1);
+		add_action( 'do_feed_rdf', [ $this, 'disableRss' ], 1);
+		add_action( 'do_feed_rss', [ $this, 'disableRss' ], 1);
+		add_action( 'do_feed_rss2', [ $this, 'disableRss' ], 1);
+		add_action( 'do_feed_atom', [ $this, 'disableRss' ], 1);
 		$network_settings = new NetworkSettings;
 		$network_settings->init();
 
@@ -75,5 +80,15 @@ class Plugin {
 
 	private function generate_cookie_hash( $password, $user_id ) {
 		return wp_hash( sprintf( '%s_%s', $user_id, $password ) );
+	}
+
+	public function disableRss() {
+		$site_settings       = SiteSettings::getSettings();
+		$network_settings    = NetworkSettings::getSettings();
+		$site_disable_rss    = ! empty( $site_settings[ 'disable-rss' ] );
+		$network_disable_rss = ! empty( $network_settings[ 'disable-rss' ] );
+		if ( $site_disable_rss || $network_disable_rss ){
+			wp_die( 'No feeds available.' );
+		}
 	}
 }

@@ -7,8 +7,9 @@ class SiteSettings {
 
 	protected static function getDefaultSettings() {
 		return $defaults = [
-				'active'   => false,
-				'password' => ''
+				'active'      => false,
+				'password'    => '',
+				'disable-rss' => false
 		];
 	}
 
@@ -42,6 +43,14 @@ class SiteSettings {
 				<?php
 			}, 'general', 'swp_settings' );
 
+			add_settings_field( 'swp_settings-disable-rss', 'Password disable-rss', function() {
+				$swp_settings = SiteSettings::getSettings();
+				$disable_rss  = ! empty( $swp_settings[ 'disable-rss' ] );
+				?>
+				<input type="checkbox" name="swp_settings[disable-rss]" id="swp_settings-disable-rss" value="1" <?php checked( $disable_rss ); ?>/>
+				<?php
+			}, 'general', 'swp_settings' );
+
 			register_setting( 'general', 'swp_settings', function() {
 				$newSettings = [ ];
 
@@ -49,10 +58,10 @@ class SiteSettings {
 
 				$newSettings[ 'active' ] = ! empty( $swp_settings['active'] );
 				$newSettings[ 'password' ] = empty( $swp_settings['password'] ) ? '' : esc_attr( $swp_settings['password'] );
+				$newSettings[ 'disable-rss' ] = ! empty( $swp_settings['disable-rss'] );
 
 				return $newSettings;
 			} );
 		} );
 	}
-	
 }
