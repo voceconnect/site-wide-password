@@ -34,8 +34,8 @@ class NetworkSettings {
 		$swp_settings = empty( $_POST[ 'swp_settings' ] ) ? array() : $_POST[ 'swp_settings' ];
 
 		$newSettings[ 'active' ] = ! empty( $swp_settings['active'] );
-		$newSettings[ 'password' ] = empty( $swp_settings['password'] ) ? '' : esc_attr( $swp_settings['password'] );
-		$newSettings[ 'disable_rss' ] = empty( $swp_settings['disable_rss'] ) ? '' : esc_attr( $swp_settings['disable_rss'] );
+		$newSettings[ 'password' ] = empty( $swp_settings['password'] ) ? '' : sanitize_text_field( $swp_settings['password'] );
+		$newSettings[ 'disable_rss' ] = ! empty( $swp_settings['disable_rss'] );
 
 		self::setSettings( $newSettings );
 	}
